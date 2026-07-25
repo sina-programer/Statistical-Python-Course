@@ -1,17 +1,28 @@
+from matplotlib import pyplot as plt
 import numpy as np
 
-# P(X > a+b | X>a) = P(X > b)
+# P(X > s+t | X>s) = P(X > t)
 
 N = 100_000
 mean = 2
-a = 1
-b = 2
-
+lam = 1 / mean
+delta = 1
 U = np.random.random(N)
-X = -np.log(U) * mean
+X = -np.log(U) / lam
 
-p1 = np.mean(X > b)
-p2 = np.mean(X[X>a] > a+b)
+grid = np.quantile(X, np.arange(1, 100)/100)
+Y = X[X > delta]
+P1 = [
+    np.mean(Y > t+delta)
+    for t in grid
+]
+P2 = [
+    np.mean(X > t)
+    for t in grid
+]
 
-print(p1)
-print(p2)
+plt.scatter(P1, P2)
+plt.xlabel('P(X > t+{0} | X>{0})'.format(delta))
+plt.ylabel('P(X > t)')
+plt.grid()
+plt.show()
