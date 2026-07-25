@@ -1,7 +1,9 @@
-a = float(input('Enter a: '))
-b = float(input('Enter b: '))
+x = int(input('Enter an integer: '))
+y = x ** 0.5
 
-if b == 0:
-    print('Division by zero is invalid')
+# if y - y//1 == 0:
+# if y == int(y):
+if y%1 == 0:
+    print('YES')
 else:
-    print(a / b)
+    print('NO')
